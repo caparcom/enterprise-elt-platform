@@ -9,6 +9,16 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	-- ensure we don't duplicate data
+	IF EXISTS (SELECT 1 
+			FROM bronze.inventory_items_raw
+			WHERE _run_id = @run_id
+			)
+	BEGIN
+		THROW 51000, 'Run_id already loaded into bronze.inventory_items_raw.
+						Use a new Run_id, or delete that Run_id for dev.', 1;
+	END;
+
 	DECLARE @audit_id BIGINT;
 	
 	-- start log
