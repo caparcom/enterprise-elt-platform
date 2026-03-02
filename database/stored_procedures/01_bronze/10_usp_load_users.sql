@@ -1,8 +1,4 @@
-IF OBJECT_ID('bronze.usp_load_users', 'P') IS NOT NULL 
-	DROP PROCEDURE bronze.usp_load_users; 
-GO
-
-CREATE PROCEDURE bronze.usp_load_users 
+CREATE OR ALTER PROCEDURE bronze.usp_load_users 
 	@run_id VARCHAR(50),
 	@source_file VARCHAR(260)
 AS
